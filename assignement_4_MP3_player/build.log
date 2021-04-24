@@ -1,0 +1,130 @@
+/usr/bin/make -j1 O=/home/abanoubmedhat8/buildroot/output HOSTCC="/usr/bin/gcc" HOSTCXX="/usr/bin/g++" syncconfig
+make[1]: Entering directory '/home/abanoubmedhat8/buildroot'
+make[1]: Leaving directory '/home/abanoubmedhat8/buildroot'
+[7m>>>   Finalizing host directory[27m
+[7m>>>   Finalizing target directory[27m
+mkdir -p /home/abanoubmedhat8/buildroot/output/host/etc/meson
+sed -e 's%@TARGET_CROSS@%/home/abanoubmedhat8/buildroot/output/host/bin/arm-buildroot-linux-uclibcgnueabihf-%g' -e 's%@TARGET_ARCH@%arm%g' -e 's%@TARGET_CPU@%cortex-a53%g' -e 's%@TARGET_ENDIAN@%little%g' -e 's%@TARGET_CFLAGS@%"-D_LARGEFILE_SOURCE", "-D_LARGEFILE64_SOURCE", "-D_FILE_OFFSET_BITS=64", "-Os"@PKG_TARGET_CFLAGS@%g' -e 's%@TARGET_LDFLAGS@%@PKG_TARGET_CFLAGS@%g' -e 's%@TARGET_CXXFLAGS@%"-D_LARGEFILE_SOURCE", "-D_LARGEFILE64_SOURCE", "-D_FILE_OFFSET_BITS=64", "-Os"@PKG_TARGET_CFLAGS@%g' -e 's%@HOST_DIR@%/home/abanoubmedhat8/buildroot/output/host%g' -e 's%@STAGING_DIR@%/home/abanoubmedhat8/buildroot/output/host/arm-buildroot-linux-uclibcgnueabihf/sysroot%g' -e 's%@STATIC@%false%g' package/meson//cross-compilation.conf.in > /home/abanoubmedhat8/buildroot/output/host/etc/meson/cross-compilation.conf.in
+sed -e 's%@PKG_TARGET_CFLAGS@%%g' -e 's%@PKG_TARGET_LDFLAGS@%%g' -e 's%@PKG_TARGET_CXXFLAGS@%%g' /home/abanoubmedhat8/buildroot/output/host/etc/meson/cross-compilation.conf.in > /home/abanoubmedhat8/buildroot/output/host/etc/meson/cross-compilation.conf
+/bin/sed -i -e '/# GENERIC_SERIAL$/s~^.*#~console::respawn:/sbin/getty -L  console 0 vt100 #~' /home/abanoubmedhat8/buildroot/output/target/etc/inittab
+/bin/sed -i -e '/^#.*-o remount,rw \/$/s~^#\+~~' /home/abanoubmedhat8/buildroot/output/target/etc/inittab
+if grep -q CONFIG_ASH=y /home/abanoubmedhat8/buildroot/output/build/busybox-1.31.1/.config; then grep -qsE '^/bin/ash$' /home/abanoubmedhat8/buildroot/output/target/etc/shells || echo "/bin/ash" >> /home/abanoubmedhat8/buildroot/output/target/etc/shells; fi
+if grep -q CONFIG_HUSH=y /home/abanoubmedhat8/buildroot/output/build/busybox-1.31.1/.config; then grep -qsE '^/bin/hush$' /home/abanoubmedhat8/buildroot/output/target/etc/shells || echo "/bin/hush" >> /home/abanoubmedhat8/buildroot/output/target/etc/shells; fi
+mkdir -p /home/abanoubmedhat8/buildroot/output/target/etc
+echo "buildroot" > /home/abanoubmedhat8/buildroot/output/target/etc/hostname
+/bin/sed -i -e '$a \127.0.1.1\tbuildroot' -e '/^127.0.1.1/d' /home/abanoubmedhat8/buildroot/output/target/etc/hosts
+mkdir -p /home/abanoubmedhat8/buildroot/output/target/etc
+echo "Welcome to Buildroot" > /home/abanoubmedhat8/buildroot/output/target/etc/issue
+/bin/sed -i -e s,^root:[^:]*:,root::, /home/abanoubmedhat8/buildroot/output/target/etc/shadow
+grep -qsE '^/bin/sh$' /home/abanoubmedhat8/buildroot/output/target/etc/shells || echo "/bin/sh" >> /home/abanoubmedhat8/buildroot/output/target/etc/shells
+if [ -x /home/abanoubmedhat8/buildroot/output/target/sbin/swapon -a -x /home/abanoubmedhat8/buildroot/output/target/sbin/swapoff ]; then /bin/sed -i -e '/^#.*\/sbin\/swap/s/^#\+[[:blank:]]*//' /home/abanoubmedhat8/buildroot/output/target/etc/inittab; else /bin/sed -i -e '/^[^#].*\/sbin\/swap/s/^/#/' /home/abanoubmedhat8/buildroot/output/target/etc/inittab; fi
+if test -d /home/abanoubmedhat8/buildroot/output/target/lib/modules/`MAKEFLAGS='' /usr/bin/make -j5 HOSTCC="/home/abanoubmedhat8/buildroot/output/host/bin/ccache /usr/bin/gcc -O2 -I/home/abanoubmedhat8/buildroot/output/host/include -L/home/abanoubmedhat8/buildroot/output/host/lib -Wl,-rpath,/home/abanoubmedhat8/buildroot/output/host/lib" ARCH=arm INSTALL_MOD_PATH=/home/abanoubmedhat8/buildroot/output/target CROSS_COMPILE="/home/abanoubmedhat8/buildroot/output/host/bin/arm-buildroot-linux-uclibcgnueabihf-" DEPMOD=/home/abanoubmedhat8/buildroot/output/host/sbin/depmod INSTALL_MOD_STRIP=1 -C /home/abanoubmedhat8/buildroot/output/build/linux-custom --no-print-directory -s kernelrelease 2>/dev/null` && grep -q "CONFIG_MODULES=y" /home/abanoubmedhat8/buildroot/output/build/linux-custom/.config; then /home/abanoubmedhat8/buildroot/output/host/sbin/depmod -a -b /home/abanoubmedhat8/buildroot/output/target `MAKEFLAGS='' /usr/bin/make -j5 HOSTCC="/home/abanoubmedhat8/buildroot/output/host/bin/ccache /usr/bin/gcc -O2 -I/home/abanoubmedhat8/buildroot/output/host/include -L/home/abanoubmedhat8/buildroot/output/host/lib -Wl,-rpath,/home/abanoubmedhat8/buildroot/output/host/lib" ARCH=arm INSTALL_MOD_PATH=/home/abanoubmedhat8/buildroot/output/target CROSS_COMPILE="/home/abanoubmedhat8/buildroot/output/host/bin/arm-buildroot-linux-uclibcgnueabihf-" DEPMOD=/home/abanoubmedhat8/buildroot/output/host/sbin/depmod INSTALL_MOD_STRIP=1 -C /home/abanoubmedhat8/buildroot/output/build/linux-custom --no-print-directory -s kernelrelease 2>/dev/null`; fi
+rm -f /home/abanoubmedhat8/buildroot/output/build/locales.nopurge
+for i in C en_US locale-archive; do echo $i >> /home/abanoubmedhat8/buildroot/output/build/locales.nopurge; done
+for dir in /home/abanoubmedhat8/buildroot/output/target/usr/share/locale /home/abanoubmedhat8/buildroot/output/target/usr/share/X11/locale /home/abanoubmedhat8/buildroot/output/target/usr/lib/locale; do if [ ! -d $dir ]; then continue; fi; for langdir in $dir/*; do if [ -e "${langdir}" ]; then grep -qx "${langdir##*/}" /home/abanoubmedhat8/buildroot/output/build/locales.nopurge || rm -rf $langdir; fi done; done
+if [ -d /home/abanoubmedhat8/buildroot/output/target/usr/share/X11/locale ]; then for lang in C en_US; do if [ -f /home/abanoubmedhat8/buildroot/output/target/usr/share/X11/locale/$lang/XLC_LOCALE ]; then echo "$lang/XLC_LOCALE: $lang"; fi done > /home/abanoubmedhat8/buildroot/output/target/usr/share/X11/locale/locale.dir; fi
+rm -rf /home/abanoubmedhat8/buildroot/output/target/usr/include /home/abanoubmedhat8/buildroot/output/target/usr/share/aclocal \
+	/home/abanoubmedhat8/buildroot/output/target/usr/lib/pkgconfig /home/abanoubmedhat8/buildroot/output/target/usr/share/pkgconfig \
+	/home/abanoubmedhat8/buildroot/output/target/usr/lib/cmake /home/abanoubmedhat8/buildroot/output/target/usr/share/cmake
+find /home/abanoubmedhat8/buildroot/output/target/usr/{lib,share}/ -name '*.cmake' -print0 | xargs -0 rm -f
+find /home/abanoubmedhat8/buildroot/output/target/lib/ /home/abanoubmedhat8/buildroot/output/target/usr/lib/ /home/abanoubmedhat8/buildroot/output/target/usr/libexec/ \
+	\( -name '*.a' -o -name '*.la' \) -print0 | xargs -0 rm -f
+rm -rf /home/abanoubmedhat8/buildroot/output/target/usr/share/gdb
+rm -rf /home/abanoubmedhat8/buildroot/output/target/usr/share/bash-completion
+rm -rf /home/abanoubmedhat8/buildroot/output/target/etc/bash_completion.d
+rm -rf /home/abanoubmedhat8/buildroot/output/target/usr/share/zsh
+rm -rf /home/abanoubmedhat8/buildroot/output/target/usr/man /home/abanoubmedhat8/buildroot/output/target/usr/share/man
+rm -rf /home/abanoubmedhat8/buildroot/output/target/usr/info /home/abanoubmedhat8/buildroot/output/target/usr/share/info
+rm -rf /home/abanoubmedhat8/buildroot/output/target/usr/doc /home/abanoubmedhat8/buildroot/output/target/usr/share/doc
+rm -rf /home/abanoubmedhat8/buildroot/output/target/usr/share/gtk-doc
+rmdir /home/abanoubmedhat8/buildroot/output/target/usr/share 2>/dev/null || true
+rm -rf /home/abanoubmedhat8/buildroot/output/target/lib/debug /home/abanoubmedhat8/buildroot/output/target/usr/lib/debug
+find /home/abanoubmedhat8/buildroot/output/target   -type f \( -perm /111 -o -name '*.so*' \) -not \( -name 'libpthread*.so*' -o -name 'ld-*.so*' -o -name '*.ko' \) -print0 | xargs -0 /home/abanoubmedhat8/buildroot/output/host/bin/arm-buildroot-linux-uclibcgnueabihf-strip --remove-section=.comment --remove-section=.note 2>/dev/null || true
+find /home/abanoubmedhat8/buildroot/output/target   \( -name 'ld-*.so*' -o -name 'libpthread*.so*' \) -print0 | xargs -0 -r /home/abanoubmedhat8/buildroot/output/host/bin/arm-buildroot-linux-uclibcgnueabihf-strip --remove-section=.comment --remove-section=.note --strip-debug 2>/dev/null || true
+test -f /home/abanoubmedhat8/buildroot/output/target/etc/ld.so.conf && \
+	{ echo "ERROR: we shouldn't have a /etc/ld.so.conf file"; exit 1; } || true
+test -d /home/abanoubmedhat8/buildroot/output/target/etc/ld.so.conf.d && \
+	{ echo "ERROR: we shouldn't have a /etc/ld.so.conf.d directory"; exit 1; } || true
+mkdir -p /home/abanoubmedhat8/buildroot/output/target/etc
+( \
+	echo "NAME=Buildroot"; \
+	echo "VERSION=2020.02.10"; \
+	echo "ID=buildroot"; \
+	echo "VERSION_ID=2020.02.10"; \
+	echo "PRETTY_NAME=\"Buildroot 2020.02.10\"" \
+) >  /home/abanoubmedhat8/buildroot/output/target/usr/lib/os-release
+ln -sf ../usr/lib/os-release /home/abanoubmedhat8/buildroot/output/target/etc
+[7m>>>   Sanitizing RPATH in target tree[27m
+PER_PACKAGE_DIR=/home/abanoubmedhat8/buildroot/output/per-package /home/abanoubmedhat8/buildroot/support/scripts/fix-rpath target
+[7m>>>   Executing post-build script board/raspberrypi3/post-build.sh[27m
+touch /home/abanoubmedhat8/buildroot/output/target/usr
+[7m>>>   Generating root filesystems common tables[27m
+rm -rf /home/abanoubmedhat8/buildroot/output/build/buildroot-fs
+mkdir -p /home/abanoubmedhat8/buildroot/output/build/buildroot-fs
+printf '   	sshd -1 sshd -1 * /var/empty - - SSH drop priv user\n\n' >> /home/abanoubmedhat8/buildroot/output/build/buildroot-fs/full_users_table.txt
+printf '   	/bin/busybox                     f 4755 0  0 - - - - -\n 	/var/empty d 755 root root - - - - -\n\n' > /home/abanoubmedhat8/buildroot/output/build/buildroot-fs/full_devices_table.txt
+cat system/device_table.txt >> /home/abanoubmedhat8/buildroot/output/build/buildroot-fs/full_devices_table.txt
+[7m>>>   Generating filesystem image rootfs.ext2[27m
+mkdir -p /home/abanoubmedhat8/buildroot/output/images
+rm -rf /home/abanoubmedhat8/buildroot/output/build/buildroot-fs/ext2
+mkdir -p /home/abanoubmedhat8/buildroot/output/build/buildroot-fs/ext2
+rsync -auH --exclude=/THIS_IS_NOT_YOUR_ROOT_FILESYSTEM /home/abanoubmedhat8/buildroot/output/target/ /home/abanoubmedhat8/buildroot/output/build/buildroot-fs/ext2/target
+echo '#!/bin/sh' > /home/abanoubmedhat8/buildroot/output/build/buildroot-fs/ext2/fakeroot
+echo "set -e" >> /home/abanoubmedhat8/buildroot/output/build/buildroot-fs/ext2/fakeroot
+echo "chown -h -R 0:0 /home/abanoubmedhat8/buildroot/output/build/buildroot-fs/ext2/target" >> /home/abanoubmedhat8/buildroot/output/build/buildroot-fs/ext2/fakeroot
+PATH="/home/abanoubmedhat8/buildroot/output/host/bin:/home/abanoubmedhat8/buildroot/output/host/sbin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin" /home/abanoubmedhat8/buildroot/support/scripts/mkusers /home/abanoubmedhat8/buildroot/output/build/buildroot-fs/full_users_table.txt /home/abanoubmedhat8/buildroot/output/build/buildroot-fs/ext2/target >> /home/abanoubmedhat8/buildroot/output/build/buildroot-fs/ext2/fakeroot
+echo "/home/abanoubmedhat8/buildroot/output/host/bin/makedevs -d /home/abanoubmedhat8/buildroot/output/build/buildroot-fs/full_devices_table.txt /home/abanoubmedhat8/buildroot/output/build/buildroot-fs/ext2/target" >> /home/abanoubmedhat8/buildroot/output/build/buildroot-fs/ext2/fakeroot
+printf '   \n' >> /home/abanoubmedhat8/buildroot/output/build/buildroot-fs/ext2/fakeroot
+printf '   	rm -f /home/abanoubmedhat8/buildroot/output/images/rootfs.ext2\n	/home/abanoubmedhat8/buildroot/output/host/sbin/mkfs.ext4 -d /home/abanoubmedhat8/buildroot/output/build/buildroot-fs/ext2/target -r 1 -N 0 -m 5 -L "" -O ^64bit /home/abanoubmedhat8/buildroot/output/images/rootfs.ext2 "120M" || { ret=$?; echo "*** Maybe you need to increase the filesystem size (BR2_TARGET_ROOTFS_EXT2_SIZE)" 1>&2; exit $ret; }\n' >> /home/abanoubmedhat8/buildroot/output/build/buildroot-fs/ext2/fakeroot
+chmod a+x /home/abanoubmedhat8/buildroot/output/build/buildroot-fs/ext2/fakeroot
+PATH="/home/abanoubmedhat8/buildroot/output/host/bin:/home/abanoubmedhat8/buildroot/output/host/sbin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin" FAKEROOTDONTTRYCHOWN=1 /home/abanoubmedhat8/buildroot/output/host/bin/fakeroot -- /home/abanoubmedhat8/buildroot/output/build/buildroot-fs/ext2/fakeroot
+rootdir=/home/abanoubmedhat8/buildroot/output/build/buildroot-fs/ext2/target
+table='/home/abanoubmedhat8/buildroot/output/build/buildroot-fs/full_devices_table.txt'
+mke2fs 1.45.6 (20-Mar-2020)
+Creating regular file /home/abanoubmedhat8/buildroot/output/images/rootfs.ext2
+64-bit filesystem support is not enabled.  The larger fields afforded by this feature enable full-strength checksumming.  Pass -O 64bit to rectify.
+Creating filesystem with 122880 1k blocks and 30720 inodes
+Filesystem UUID: 15713d78-5a45-4b1e-b150-7bf375076906
+Superblock backups stored on blocks: 
+	8193, 24577, 40961, 57345, 73729
+
+Allocating group tables:  0/15     done                            
+Writing inode tables:  0/15     done                            
+Creating journal (4096 blocks): done
+Copying files into the device: done
+Writing superblocks and filesystem accounting information:  0/15     done
+
+ln -sf rootfs.ext2 /home/abanoubmedhat8/buildroot/output/images/rootfs.ext4
+[7m>>>   Executing post-image script board/raspberrypi3/post-image.sh[27m
+board/raspberrypi3/genimage-raspberrypi3.cfg:34: no sub-section title/index for 'config'
+INFO: cmd: "mkdir -p "/home/abanoubmedhat8/buildroot/output/build/genimage.tmp"" (stderr):
+INFO: cmd: "rm -rf "/home/abanoubmedhat8/buildroot/output/build/genimage.tmp"/*" (stderr):
+INFO: cmd: "mkdir -p "/home/abanoubmedhat8/buildroot/output/build/genimage.tmp"" (stderr):
+INFO: cmd: "cp -a "/tmp/tmp.aGOIjD8ZrE" "/home/abanoubmedhat8/buildroot/output/build/genimage.tmp/root"" (stderr):
+INFO: cmd: "find '/home/abanoubmedhat8/buildroot/output/build/genimage.tmp/root' -depth -type d -printf '%P\0' | xargs -0 -I {} touch -r '/tmp/tmp.aGOIjD8ZrE/{}' '/home/abanoubmedhat8/buildroot/output/build/genimage.tmp/root/{}'" (stderr):
+INFO: cmd: "mkdir -p "/home/abanoubmedhat8/buildroot/output/images"" (stderr):
+INFO: vfat(boot.vfat): cmd: "dd if=/dev/zero of="/home/abanoubmedhat8/buildroot/output/images/boot.vfat" seek=33554432 count=0 bs=1 2>/dev/null" (stderr):
+INFO: vfat(boot.vfat): cmd: "mkdosfs   '/home/abanoubmedhat8/buildroot/output/images/boot.vfat'" (stderr):
+INFO: vfat(boot.vfat): adding file 'bcm2710-rpi-3-b.dtb' as 'bcm2710-rpi-3-b.dtb' ...
+INFO: vfat(boot.vfat): cmd: "MTOOLS_SKIP_CHECK=1 mcopy -bsp -i '/home/abanoubmedhat8/buildroot/output/images/boot.vfat' '/home/abanoubmedhat8/buildroot/output/images/bcm2710-rpi-3-b.dtb' '::'" (stderr):
+INFO: vfat(boot.vfat): adding file 'bcm2710-rpi-3-b-plus.dtb' as 'bcm2710-rpi-3-b-plus.dtb' ...
+INFO: vfat(boot.vfat): cmd: "MTOOLS_SKIP_CHECK=1 mcopy -bsp -i '/home/abanoubmedhat8/buildroot/output/images/boot.vfat' '/home/abanoubmedhat8/buildroot/output/images/bcm2710-rpi-3-b-plus.dtb' '::'" (stderr):
+INFO: vfat(boot.vfat): adding file 'bcm2710-rpi-cm3.dtb' as 'bcm2710-rpi-cm3.dtb' ...
+INFO: vfat(boot.vfat): cmd: "MTOOLS_SKIP_CHECK=1 mcopy -bsp -i '/home/abanoubmedhat8/buildroot/output/images/boot.vfat' '/home/abanoubmedhat8/buildroot/output/images/bcm2710-rpi-cm3.dtb' '::'" (stderr):
+INFO: vfat(boot.vfat): adding file 'rpi-firmware/bootcode.bin' as 'rpi-firmware/bootcode.bin' ...
+INFO: vfat(boot.vfat): cmd: "MTOOLS_SKIP_CHECK=1 mcopy -bsp -i '/home/abanoubmedhat8/buildroot/output/images/boot.vfat' '/home/abanoubmedhat8/buildroot/output/images/rpi-firmware/bootcode.bin' '::'" (stderr):
+INFO: vfat(boot.vfat): adding file 'rpi-firmware/cmdline.txt' as 'rpi-firmware/cmdline.txt' ...
+INFO: vfat(boot.vfat): cmd: "MTOOLS_SKIP_CHECK=1 mcopy -bsp -i '/home/abanoubmedhat8/buildroot/output/images/boot.vfat' '/home/abanoubmedhat8/buildroot/output/images/rpi-firmware/cmdline.txt' '::'" (stderr):
+INFO: vfat(boot.vfat): adding file 'rpi-firmware/config.txt' as 'rpi-firmware/config.txt' ...
+INFO: vfat(boot.vfat): cmd: "MTOOLS_SKIP_CHECK=1 mcopy -bsp -i '/home/abanoubmedhat8/buildroot/output/images/boot.vfat' '/home/abanoubmedhat8/buildroot/output/images/rpi-firmware/config.txt' '::'" (stderr):
+INFO: vfat(boot.vfat): adding file 'rpi-firmware/fixup.dat' as 'rpi-firmware/fixup.dat' ...
+INFO: vfat(boot.vfat): cmd: "MTOOLS_SKIP_CHECK=1 mcopy -bsp -i '/home/abanoubmedhat8/buildroot/output/images/boot.vfat' '/home/abanoubmedhat8/buildroot/output/images/rpi-firmware/fixup.dat' '::'" (stderr):
+INFO: vfat(boot.vfat): adding file 'rpi-firmware/start.elf' as 'rpi-firmware/start.elf' ...
+INFO: vfat(boot.vfat): cmd: "MTOOLS_SKIP_CHECK=1 mcopy -bsp -i '/home/abanoubmedhat8/buildroot/output/images/boot.vfat' '/home/abanoubmedhat8/buildroot/output/images/rpi-firmware/start.elf' '::'" (stderr):
+INFO: vfat(boot.vfat): adding file 'rpi-firmware/overlays' as 'rpi-firmware/overlays' ...
+INFO: vfat(boot.vfat): cmd: "MTOOLS_SKIP_CHECK=1 mcopy -bsp -i '/home/abanoubmedhat8/buildroot/output/images/boot.vfat' '/home/abanoubmedhat8/buildroot/output/images/rpi-firmware/overlays' '::'" (stderr):
+INFO: vfat(boot.vfat): adding file 'zImage' as 'zImage' ...
+INFO: vfat(boot.vfat): cmd: "MTOOLS_SKIP_CHECK=1 mcopy -bsp -i '/home/abanoubmedhat8/buildroot/output/images/boot.vfat' '/home/abanoubmedhat8/buildroot/output/images/zImage' '::'" (stderr):
+INFO: hdimage(sdcard.img): adding partition 'boot' (in MBR) from 'boot.vfat' ...
+INFO: hdimage(sdcard.img): adding partition 'rootfs' (in MBR) from 'rootfs.ext4' ...
+INFO: hdimage(sdcard.img): writing MBR
